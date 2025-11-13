@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUNGERNEST MENU</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold text-gray-800">HUNGERNEST</h1>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Home</a>
+                    <a href="#menu" class="text-gray-600 hover:text-gray-900">Menu</a>
+                    <a href="#about" class="text-gray-600 hover:text-gray-900">About</a>
+                    <a href="#contact" class="text-gray-600 hover:text-gray-900">Contact</a>
+                </div>
+                <button id="menuBtn" class="md:hidden text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="#" class="block text-gray-600 hover:text-gray-900">Home</a>
+                <a href="#menu" class="block text-gray-600 hover:text-gray-900">Menu</a>
+                <a href="#about" class="block text-gray-600 hover:text-gray-900">About</a>
+                <a href="#contact" class="block text-gray-600 hover:text-gray-900">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-orange-500 to-red-600 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4">Welcome to HUNGERNEST</h2>
+            <p class="text-xl md:text-2xl mb-8">Authentic Indian Cuisine & More</p>
+            <button onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth'})" class="bg-white text-orange-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300">
+                View Menu
+            </button>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">Our Menu</h3>
+            
+            <!-- Category Filter -->
+            <div class="flex justify-center mb-8 flex-wrap gap-4">
+                <button onclick="filterMenu('all')" class="filter-btn bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition">All</button>
+                <button onclick="filterMenu('breakfast')" class="filter-btn bg-white text-gray-800 px-6 py-2 rounded-full hover:bg-orange-500 hover:text-white transition">Breakfast</button>
+                <button onclick="filterMenu('soups')" class="filter-btn bg-white text-gray-800 px-6 py-2 rounded-full hover:bg-orange-500 hover:text-white transition">Soups</button>
+                <button onclick="filterMenu('starters')" class="filter-btn bg-white text-gray-800 px-6 py-2 rounded-full hover:bg-orange-500 hover:text-white transition">Starters</button>
+                <button onclick="filterMenu('tandoori')" class="filter-btn bg-white text-gray-800 px-6 py-2 rounded-full hover:bg-orange-500 hover:text-white transition">Tandoori</button>
+                <button onclick="filterMenu('noodles')" class="filter-btn bg-white text-gray-800 px-6 py-2 rounded-full hover:bg-orange-500 hover:text-white transition">Noodles</button>
+                <button onclick="filterMenu('friedrice')" class="filter-btn bg-white text-gray-800 px-6 py-2 rounded-full hover:bg-orange-500 hover:text-white transition">Fried Rice</button>
+                <button onclick="filterMenu('breads')" class="filter-btn bg-white text-gray-800 px-6 py-2 rounded-full hover:bg-orange-500 hover:text-white transition">Breads</button>
+                <button onclick="filterMenu('curries')" class="filter-btn bg-white text-gray-800 px-6 py-2 rounded-full hover:bg-orange-500 hover:text-white transition">Curries</button>
+                <button onclick="filterMenu('biryani')" class="filter-btn bg-white text-gray-800 px-6 py-2 rounded-full hover:bg-orange-500 hover:text-white transition">Biryani</button>
+                <button onclick="filterMenu('family')" class="filter-btn bg-white text-gray-800 px-6 py-2 rounded-full hover:bg-orange-500 hover:text-white transition">Family Packs</button>
+            </div>
+
+            <!-- Breakfast Items -->
+            <div class="menu-category breakfast" id="breakfast-section">
+                <h4 class="text-3xl font-bold text-gray-800 mb-6">Breakfast</h4>
+                <div id="breakfast-items"></div>
+            </div>
+
+            <!-- Soups -->
+            <div class="menu-category soups" id="soups-section">
+                <h4 class="text-3xl font-bold text-gray-800 mb-6 mt-12">Soups</h4>
+                <div id="soups-items"></div>
+            </div>
+
+            <!-- Starters -->
+            <div class="menu-category starters" id="starters-section">
+                <h4 class="text-3xl font-bold text-gray-800 mb-6 mt-12">Starters</h4>
+                <div id="starters-items"></div>
+            </div>
+
+            <!-- Tandoori -->
+            <div class="menu-category tandoori" id="tandoori-section">
+                <h4 class="text-3xl font-bold text-gray-800 mb-6 mt-12">Tandoori</h4>
+                <div id="tandoori-items"></div>
+            </div>
+
+            <!-- Noodles -->
+            <div class="menu-category noodles" id="noodles-section">
+                <h4 class="text-3xl font-bold text-gray-800 mb-6 mt-12">Noodles</h4>
+                <div id="noodles-items"></div>
+            </div>
+
+            <!-- Fried Rice -->
+            <div class="menu-category friedrice" id="friedrice-section">
+                <h4 class="text-3xl font-bold text-gray-800 mb-6 mt-12">Fried Rice</h4>
+                <div id="friedrice-items"></div>
+            </div>
+
+            <!-- Breads -->
+            <div class="menu-category breads" id="breads-section">
+                <h4 class="text-3xl font-bold text-gray-800 mb-6 mt-12">Breads & Rotis</h4>
+                <div id="breads-items"></div>
+            </div>
+
+            <!-- Curries -->
+            <div class="menu-category curries" id="curries-section">
+                <h4 class="text-3xl font-bold text-gray-800 mb-6 mt-12">Curries</h4>
+                <div id="curries-items"></div>
+            </div>
+
+            <!-- Biryani -->
+            <div class="menu-category biryani" id="biryani-section">
+                <h4 class="text-3xl font-bold text-gray-800 mb-6 mt-12">Biryani</h4>
+                <div id="biryani-items"></div>
+            </div>
+
+            <!-- Family Packs -->
+            <div class="menu-category family" id="family-section">
+                <h4 class="text-3xl font-bold text-gray-800 mb-6 mt-12">Family Packs</h4>
+                <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-6" id="family-items"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">About HUNGERNEST</h3>
+            <div class="max-w-3xl mx-auto text-center">
+                <p class="text-lg text-gray-700 mb-6">
+                    Welcome to HUNGERNEST, where authentic Indian flavors meet modern culinary excellence. 
+                    We pride ourselves on serving fresh, delicious food made with the finest ingredients.
+                </p>
+                <p class="text-lg text-gray-700 mb-6">
+                    From traditional South Indian breakfast items to aromatic biryanis, from sizzling tandoori 
+                    delights to flavorful curries, our extensive menu caters to every palate. Whether you're 
+                    a vegetarian or a non-vegetarian food lover, we have something special for everyone.
+                </p>
+                <p class="text-lg text-gray-700">
+                    Our experienced chefs bring years of culinary expertise to create dishes that not only 
+                    satisfy your hunger but also create memorable dining experiences.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">Customer Reviews</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            R
+                        </div>
+                        <div class="ml-4">
+                            <h5 class="font-semibold text-gray-800">Rajesh Kumar</h5>
+                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "Best biryani in town! The Chicken Dum Biryani is absolutely delicious. 
+                        The flavors are authentic and the portion size is generous."
+                    </p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            P
+                        </div>
+                        <div class="ml-4">
+                            <h5 class="font-semibold text-gray-800">Priya Sharma</h5>
+                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "Excellent vegetarian options! The Paneer Butter Masala and Garlic Naan 
+                        combination is heavenly. Highly recommended!"
+                    </p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            A
+                        </div>
+                        <div class="ml-4">
+                            <h5 class="font-semibold text-gray-800">Arjun Reddy</h5>
+                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "The breakfast menu is amazing! Their Masala Dosa and filter coffee 
+                        remind me of my hometown. Will definitely visit again."
+                    </p>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            S
+                        </div>
+                        <div class="ml-4">
+                            <h5 class="font-semibold text-gray-800">Sneha Patel</h5>
+                            <div class="text-yellow-500">⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "Love their tandoori items! The Tandoori Chicken is perfectly marinated 
+                        and cooked. Great taste and quality."
+                    </p>
+                </div>
+
+                <!-- Review 5 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            V
+                        </div>
+                        <div class="ml-4">
+                            <h5 class="font-semibold text-gray-800">Vikram Singh</h5>
+                            <div class="text-yellow-500">⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "Family packs are value for money! Perfect for weekend dinners. 
+                        The variety and quantity is impressive."
+                    </p>
+                </div>
+
+                <!-- Review 6 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            M
+                        </div>
+                        <div class="ml-4">
+                            <h5 class="font-semibold text-gray-800">Meera Das</h5>
+                            <div class="text-yellow-500">⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        "Quick service and tasty food! The Chicken 65 is spicy and crispy, 
+                        just the way I like it. Great experience overall."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">Contact Us</h3>
+            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-2xl font-semibold text-gray-800 mb-6">Get In Touch</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-orange-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <div>
+                                <h5 class="font-semibold text-gray-800">Address</h5>
+                                <p class="text-gray-600">Opp., Fabindia, Midhilapuri Vuda Colony Road,<br>Madhurawada, Visakhapatnam - 530041,<br>Andhra Pradesh, India</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-orange-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                            <div>
+                                <h5 class="font-semibold text-gray-800">Phone</h5>
+                                <p class="text-gray-600">+91 96188 80512<br>+91 86881 74913</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-orange-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <div>
+                                <h5 class="font-semibold text-gray-800">Email</h5>
+                                <p class="text-gray-600">www.koteswar012@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-orange-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <h5 class="font-semibold text-gray-800">Hours</h5>
+                                <p class="text-gray-600">Mon - Sun: 6:00 AM - 11:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div>
+                    <h4 class="text-2xl font-semibold text-gray-800 mb-6">Send Message</h4>
+                    <form class="space-y-4">
+                        <div>
+                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Your Email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
+                        </div>
+                        <div>
+                            <input type="tel" placeholder="Your Phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
+                        </div>
+                        <div>
+                            <textarea rows="4" placeholder="Your Message" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-orange-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 HUNGERNEST. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Data
+        const menuData = {
+            breakfast: [
+                {name: "Idly", price: "30/-", category: "Veg"},
+                {name: "Sambar Idly", price: "50/-", category: "Veg"},
+                {name: "Mysore Bonda", price: "30/-", category: "Veg"},
+                {name: "Onion Bonda", price: "30/-", category: "Veg"},
+                {name: "Vada", price: "30/-", category: "Veg"},
+                {name: "Poori", price: "40/-", category: "Veg"},
+                {name: "Ghee Podi Idly", price: "60/-", category: "Veg"},
+                {name: "Perugu Vada", price: "60/-", category: "Veg"},
+                {name: "Plain Dosa", price: "30/-", category: "Veg"},
+                {name: "Onion Dosa", price: "40/-", category: "Veg"},
+                {name: "Masala Dosa", price: "50/-", category: "Veg"},
+                {name: "Upma Dosa", price: "50/-", category: "Veg"},
+                {name: "Onion Pesara", price: "40/-", category: "Veg"},
+                {name: "Upma Pesara", price: "60/-", category: "Veg"},
+                {name: "Masala Pesara", price: "60/-", category: "Veg"},
+                {name: "Schezwan Dosa", price: "40/-", category: "Veg"},
+                {name: "Chocolate Dosa", price: "50/-", category: "Veg"},
+                {name: "Sweet Corn Dosa", price: "70/-", category: "Veg"},
+                {name: "Green Peas Dosa", price: "70/-", category: "Veg"},
+                {name: "Mushroom Dosa", price: "80/-", category: "Veg"},
+                {name: "Paneer Dosa", price: "100/-", category: "Veg"},
+                {name: "Podi Dosa", price: "40/-", category: "Veg"},
+                {name: "Ghee Podi Dosa", price: "60/-", category: "Veg"},
+                {name: "Butter Dosa", price: "50/-", category: "Veg"},
+                {name: "Schezwan Cheese Dosa", price: "70/-", category: "Veg"},
+                {name: "Chapathi", price: "40/-", category: "Veg"},
+                {name: "Parota", price: "60/-", category: "Veg"},
+                {name: "Idly with Chicken Curry", price: "120/-", category: "Non-Veg"},
+                {name: "Vada with Chicken Curry", price: "130/-", category: "Non-Veg"},
+                {name: "Poori with Chicken Curry", price: "130/-", category: "Non-Veg"},
+                {name: "Dosa With Chicken Curry", price: "120/-", category: "Non-Veg"},
+                {name: "Chicken Keema Dosa", price: "120/-", category: "Non-Veg"},
+                {name: "Egg Keema Dosa", price: "140/-", category: "Non-Veg"},
+                {name: "Egg Dosa", price: "60/-", category: "Non-Veg"},
+                {name: "Onion Egg Dosa", price: "70/-", category: "Non-Veg"},
+                {name: "Chapathi with Chicken Curry", price: "130/-", category: "Non-Veg"},
+                {name: "Parota with Chicken Curry", price: "150/-", category: "Non-Veg"}
+            ],
+            soups: [
+                {name: "Tomato Soup", price: "60/-", category: "Veg"},
+                {name: "Veg Sweet Corn Soup", price: "70/-", category: "Veg"},
+                {name: "Veg Clear Soup", price: "60/-", category: "Veg"},
+                {name: "Veg Manchow Soup", price: "80/-", category: "Veg"},
+                {name: "Veg Lemon Coriander Soup", price: "90/-", category: "Veg"},
+                {name: "Chicken Clear Soup", price: "80/-", category: "Non-Veg"},
+                {name: "Chicken Hot & Sour Soup", price: "80/-", category: "Non-Veg"},
+                {name: "Chicken Sweet Corn Soup", price: "80/-", category: "Non-Veg"},
+                {name: "Chicken Manchow Soup", price: "90/-", category: "Non-Veg"},
+                {name: "Chicken Lemon Coriander Soup", price: "100/-", category: "Non-Veg"}
+            ],
+            starters: [
+                {name: "Veg Manchuria Dry", price: "100/-", category: "Veg"},
+                {name: "Veg Manchuria Wet", price: "120/-", category: "Veg"},
+                {name: "Paneer Manchuria", price: "160/-", category: "Veg"},
+                {name: "Paneer 65", price: "160/-", category: "Veg"},
+                {name: "Chilli Paneer", price: "170/-", category: "Veg"},
+                {name: "Mushroom Manchuria", price: "150/-", category: "Veg"},
+                {name: "Mushroom 65", price: "150/-", category: "Veg"},
+                {name: "Chilli Mushroom", price: "160/-", category: "Veg"},
+                {name: "Baby Corn Manchuria", price: "150/-", category: "Veg"},
+                {name: "Baby Corn 65", price: "150/-", category: "Veg"},
+                {name: "Chilli Baby Corn", price: "160/-", category: "Veg"},
+                {name: "Crispy Baby Corn", price: "170/-", category: "Veg"},
+                {name: "Crispy Corn", price: "150/-", category: "Veg"},
+                {name: "Gobi 65", price: "140/-", category: "Veg"},
+                {name: "Gobi Manchuria", price: "140/-", category: "Veg"},
+                {name: "Chilli Gobi", price: "140/-", category: "Veg"},
+                {name: "Baby Corn Majestic", price: "170/-", category: "Veg"},
+                {name: "Paneer Majestic", price: "170/-", category: "Veg"},
+                {name: "Veg Mangolia", price: "170/-", category: "Veg"},
+                {name: "Aloo 65", price: "130/-", category: "Veg"},
+                {name: "Chilli Aloo", price: "140/-", category: "Veg"},
+                {name: "French Fries", price: "100/-", category: "Veg"},
+                {name: "Chicken Manchuria", price: "170/-", category: "Non-Veg"},
+                {name: "Chicken 65", price: "180/-", category: "Non-Veg"},
+                {name: "Chilli Chicken", price: "180/-", category: "Non-Veg"},
+                {name: "Chicken Lollipop", price: "220/-", category: "Non-Veg"},
+                {name: "Chicken Wings", price: "190/-", category: "Non-Veg"},
+                {name: "Pepper Chicken", price: "190/-", category: "Non-Veg"},
+                {name: "Lemon Chicken", price: "190/-", category: "Non-Veg"},
+                {name: "Ginger Chicken", price: "190/-", category: "Non-Veg"},
+                {name: "Garlic Chicken", price: "190/-", category: "Non-Veg"},
+                {name: "Chicken 555", price: "200/-", category: "Non-Veg"},
+                {name: "Hong Kong Chicken", price: "180/-", category: "Non-Veg"},
+                {name: "Dragon Chicken", price: "200/-", category: "Non-Veg"},
+                {name: "Kaju Chicken", price: "200/-", category: "Non-Veg"},
+                {name: "Apollo Fish", price: "180/-", category: "Non-Veg"},
+                {name: "Chilli Fish", price: "190/-", category: "Non-Veg"},
+                {name: "Prawns Roast", price: "200/-", category: "Non-Veg"},
+                {name: "Chilli Prawns", price: "200/-", category: "Non-Veg"},
+                {name: "Loose Prawns", price: "220/-", category: "Non-Veg"},
+                {name: "Chicken Majestic", price: "200/-", category: "Non-Veg"},
+                {name: "Chicken 999", price: "200/-", category: "Non-Veg"},
+                {name: "Chicken Mangolia", price: "200/-", category: "Non-Veg"},
+                {name: "Chicken Pakoda Bone", price: "180/-", category: "Non-Veg"},
+                {name: "Chilli Chicken Bone", price: "170/-", category: "Non-Veg"},
+                {name: "Pepper Prawns", price: "200/-", category: "Non-Veg"},
+                {name: "Ginger Prawns", price: "220/-", category: "Non-Veg"},
+                {name: "Fish Roast", price: "190/-", category: "Non-Veg"}
+            ],
+            tandoori: [
+                {name: "Paneer Tikka", price: "200/-", category: "Veg"},
+                {name: "Aloo Tikka", price: "180/-", category: "Veg"},
+                {name: "Tandoori Chicken", price: "250/- (Half) / 400/- (Full)", category: "Non-Veg"},
+                {name: "Chicken Kalmi Kebab", price: "120/- (Half) / 200/- (Full)", category: "Non-Veg"},
+                {name: "Chicken Tangdi Kebab", price: "120/- (Half) / 200/- (Full)", category: "Non-Veg"},
+                {name: "Reshmi Kebab", price: "220/-", category: "Non-Veg"},
+                {name: "Malai Kebab", price: "200/-", category: "Non-Veg"},
+                {name: "Haryali Kebab", price: "200/-", category: "Non-Veg"}
+            ],
+            noodles: [
+                {name: "Veg Noodles", price: "100/-", category: "Veg"},
+                {name: "Veg Manchuria Noodles", price: "120/-", category: "Veg"},
+                {name: "Veg Schezwan Noodles", price: "110/-", category: "Veg"},
+                {name: "Sweet Corn Noodles", price: "100/-", category: "Veg"},
+                {name: "Paneer Noodles", price: "140/-", category: "Veg"},
+                {name: "Mushroom Noodles", price: "140/-", category: "Veg"},
+                {name: "Mushroom Manchuria Noodles", price: "150/-", category: "Veg"},
+                {name: "Chilli Paneer Noodles", price: "150/-", category: "Veg"},
+                {name: "Paneer Manchuria Noodles", price: "150/-", category: "Veg"},
+                {name: "Double Egg Noodles", price: "80/- (Half) / 110/- (Full)", category: "Non-Veg"},
+                {name: "Chicken Noodles", price: "90/- (Half) / 120/- (Full)", category: "Non-Veg"},
+                {name: "Chicken Schezwan Noodles", price: "130/-", category: "Non-Veg"},
+                {name: "Chicken Manchuria Noodles", price: "150/-", category: "Non-Veg"},
+                {name: "Chilli Chicken Noodles", price: "160/-", category: "Non-Veg"},
+                {name: "Chicken 65 Noodles", price: "160/-", category: "Non-Veg"}
+            ],
+            friedrice: [
+                {name: "Veg Fried Rice", price: "100/-", category: "Veg"},
+                {name: "Veg Schezwan Fried Rice", price: "120/-", category: "Veg"},
+                {name: "Sweet Corn Fried Rice", price: "120/-", category: "Veg"},
+                {name: "Paneer Fried Rice", price: "140/-", category: "Veg"},
+                {name: "Mushroom Fried Rice", price: "140/-", category: "Veg"},
+                {name: "Special Veg Fried Rice", price: "160/-", category: "Veg"},
+                {name: "Veg Manchuria Fried Rice", price: "130/-", category: "Veg"},
+                {name: "Paneer Manchuria Fried Rice", price: "150/-", category: "Veg"},
+                {name: "Mushroom Manchuria Fried Rice", price: "150/-", category: "Veg"},
+                {name: "Mix Veg Fried Rice", price: "150/-", category: "Veg"},
+                {name: "Jeera Rice", price: "120/-", category: "Veg"},
+                {name: "Curd Rice", price: "100/-", category: "Veg"},
+                {name: "Egg Fried Rice", price: "80/- (Half) / 120/- (Full)", category: "Non-Veg"},
+                {name: "Chicken Fried Rice", price: "90/- (Half) / 140/- (Full)", category: "Non-Veg"},
+                {name: "Chicken Schezwan Fried Rice", price: "150/-", category: "Non-Veg"},
+                {name: "Chicken Manchurian Fried Rice", price: "160/-", category: "Non-Veg"},
+                {name: "Chicken 65 Fried Rice", price: "160/-", category: "Non-Veg"},
+                {name: "Chilli Chicken Fried Rice", price: "160/-", category: "Non-Veg"},
+                {name: "Special Chicken Fried Rice", price: "160/-", category: "Non-Veg"},
+                {name: "Prawn Fried Rice", price: "160/-", category: "Non-Veg"},
+                {name: "Chilli Prawn Fried Rice", price: "170/-", category: "Non-Veg"},
+                {name: "Egg Schezwan Fried Rice", price: "130/-", category: "Non-Veg"}
+            ],
+            breads: [
+                {name: "Pulka", price: "15/-", category: "Veg"},
+                {name: "Plain Naan", price: "25/-", category: "Veg"},
+                {name: "Butter Naan", price: "30/-", category: "Veg"},
+                {name: "Garlic Naan", price: "35/-", category: "Veg"},
+                {name: "Roti", price: "25/-", category: "Veg"},
+                {name: "Butter Roti", price: "30/-", category: "Veg"}
+            ],
+            curries: [
+                {name: "Cashew Tomato", price: "170/-", category: "Veg"},
+                {name: "Cashew Paneer", price: "180/-", category: "Veg"},
+                {name: "Cashew Masala", price: "180/-", category: "Veg"},
+                {name: "Mixed Veg Curry", price: "150/-", category: "Veg"},
+                {name: "Veg Kadai", price: "150/-", category: "Veg"},
+                {name: "Paneer Methi Chaman", price: "160/-", category: "Veg"},
+                {name: "Paneer Curry", price: "160/-", category: "Veg"},
+                {name: "Paneer Butter Masala", price: "180/-", category: "Veg"},
+                {name: "Kadai Paneer", price: "170/-", category: "Veg"},
+                {name: "Matar Paneer", price: "160/-", category: "Veg"},
+                {name: "Palak Paneer", price: "160/-", category: "Veg"},
+                {name: "Capsicum Cashew Curry", price: "170/-", category: "Veg"},
+                {name: "Mushroom Curry", price: "160/-", category: "Veg"},
+                {name: "Dal Fry", price: "120/-", category: "Veg"},
+                {name: "Veg Jaipuri", price: "140/-", category: "Veg"},
+                {name: "Veg Malai Kofta", price: "160/-", category: "Veg"},
+                {name: "Veg Keema Curry", price: "150/-", category: "Veg"},
+                {name: "Veg Chatpat", price: "150/-", category: "Veg"},
+                {name: "Veg Kolapuri", price: "150/-", category: "Veg"},
+                {name: "Plain Palak", price: "130/-", category: "Veg"},
+                {name: "Aloo Palak", price: "140/-", category: "Veg"},
+                {name: "Palak Kofta", price: "150/-", category: "Veg"},
+                {name: "Paneer Keema Curry", price: "160/-", category: "Veg"},
+                {name: "Paneer Shahi Kurma", price: "170/-", category: "Veg"},
+                {name: "Egg Masala", price: "120/-", category: "Non-Veg"},
+                {name: "Egg Bhurji", price: "100/-", category: "Non-Veg"},
+                {name: "Chicken Curry Bone", price: "160/-", category: "Non-Veg"},
+                {name: "Chicken Curry Boneless", price: "170/-", category: "Non-Veg"},
+                {name: "Andhra Chicken Curry", price: "170/-", category: "Non-Veg"},
+                {name: "Moghalai Chicken Curry", price: "180/-", category: "Non-Veg"},
+                {name: "Afghani Chicken", price: "180/-", category: "Non-Veg"},
+                {name: "Butter Chicken", price: "180/-", category: "Non-Veg"},
+                {name: "Chicken Chettinad", price: "170/-", category: "Non-Veg"},
+                {name: "Chicken Mahrani", price: "170/-", category: "Non-Veg"},
+                {name: "Punjabi Chicken", price: "180/-", category: "Non-Veg"},
+                {name: "Kadai Chicken", price: "170/-", category: "Non-Veg"},
+                {name: "Gongura Chicken Curry", price: "170/-", category: "Non-Veg"},
+                {name: "Methi Chicken", price: "170/-", category: "Non-Veg"},
+                {name: "Prawn Curry", price: "220/-", category: "Non-Veg"},
+                {name: "Fish Curry", price: "200/-", category: "Non-Veg"}
+            ],
+            biryani: [
+                {name: "Veg Biryani", price: "130/-", category: "Veg"},
+                {name: "Paneer Biryani", price: "160/-", category: "Veg"},
+                {name: "Mushroom Biryani", price: "150/-", category: "Veg"},
+                {name: "Baby Corn Biryani", price: "150/-", category: "Veg"},
+                {name: "Cashew Paneer Biryani", price: "180/-", category: "Veg"},
+                {name: "Cashew Mushroom Biryani", price: "170/-", category: "Veg"},
+                {name: "Chilli Paneer Biryani", price: "180/-", category: "Veg"},
+                {name: "Paneer 65 Biryani", price: "170/-", category: "Veg"},
+                {name: "Special Veg Biryani", price: "180/-", category: "Veg"},
+                {name: "Mushroom 65 Biryani", price: "160/-", category: "Veg"},
+                {name: "Chilli Mushroom Biryani", price: "170/-", category: "Veg"},
+                {name: "Gongura Veg Biryani", price: "180/-", category: "Veg"},
+                {name: "Chicken Dum Biryani", price: "170/-", category: "Non-Veg"},
+                {name: "Chicken Fry Biryani - 6pc", price: "170/-", category: "Non-Veg"},
+                {name: "Boneless Chicken Biryani", price: "180/-", category: "Non-Veg"},
+                {name: "Chicken Mogalai Biryani", price: "190/-", category: "Non-Veg"},
+                {name: "Chicken Lollipop Biryani - 3pc", price: "220/-", category: "Non-Veg"},
+                {name: "Chicken Wings Biryani", price: "200/-", category: "Non-Veg"},
+                {name: "Chicken Tikka Biryani", price: "250/-", category: "Non-Veg"},
+                {name: "Chicken Kalmi Biryani", price: "220/-", category: "Non-Veg"},
+                {name: "Gongura Chicken Biryani", price: "200/-", category: "Non-Veg"},
+                {name: "Ulavacharu Biryani", price: "200/-", category: "Non-Veg"},
+                {name: "Avakai Biryani", price: "200/-", category: "Non-Veg"},
+                {name: "Chicken 65 Biryani", price: "220/-", category: "Non-Veg"},
+                {name: "Prawn Biryani", price: "220/-", category: "Non-Veg"},
+                {name: "Fish Biryani", price: "220/-", category: "Non-Veg"},
+                {name: "Egg Biryani - 2pc", price: "130/-", category: "Non-Veg"},
+                {name: "Rambo Biryani", price: "250/-", category: "Non-Veg"},
+                {name: "Chicken Keema Biryani", price: "220/-", category: "Non-Veg"},
+                {name: "Afghani Biryani", price: "250/-", category: "Non-Veg"},
+                {name: "Tandoori Biryani", price: "250/-", category: "Non-Veg"}
+            ],
+            family: [
+                {name: "Chicken Family Pack", includes: "2× Biryani Rice, 1× Bone Curry, 1× Bone Less Curry, 1× Chicken Starter", price: "649/-", category: "Non-Veg"},
+                {name: "Prawn Family Pack", includes: "2× Biryani Rice, 1× Chicken Bone Curry, 1× Prawn Curry, 1× Prawn Starter", price: "699/-", category: "Non-Veg"},
+                {name: "Fish Family Pack", includes: "2× Biryani Rice, 1× Chicken Bone Curry, 1× Fish Curry, 1× Fish Starter", price: "699/-", category: "Non-Veg"}
+            ]
+        };
+
+        // Render menu items
+        function renderMenu() {
+            renderCategory('breakfast', menuData.breakfast);
+            renderCategory('soups', menuData.soups);
+            renderCategory('starters', menuData.starters);
+            renderCategory('tandoori', menuData.tandoori);
+            renderCategory('noodles', menuData.noodles);
+            renderCategory('friedrice', menuData.friedrice);
+            renderCategory('breads', menuData.breads);
+            renderCategory('curries', menuData.curries);
+            renderCategory('biryani', menuData.biryani);
+
+            // Family Packs
+            const familyContainer = document.getElementById('family-items');
+            menuData.family.forEach(item => {
+                familyContainer.innerHTML += createFamilyPackCard(item);
+            });
+        }
+
+        // Render category with Veg/Non-Veg separation
+        function renderCategory(categoryName, items) {
+            const container = document.getElementById(categoryName + '-items');
+            const vegItems = items.filter(item => item.category === 'Veg');
+            const nonVegItems = items.filter(item => item.category === 'Non-Veg');
+
+            let html = '';
+
+            // Veg Section
+            if (vegItems.length > 0) {
+                html += '<h5 class="text-xl md:text-2xl font-semibold text-green-600 mb-4 flex items-center"><span class="mr-2">🟢</span> Vegetarian</h5>';
+                html += '<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 mb-8">';
+                vegItems.forEach(item => {
+                    html += createMenuCard(item);
+                });
+                html += '</div>';
+            }
+
+            // Non-Veg Section
+            if (nonVegItems.length > 0) {
+                html += '<h5 class="text-xl md:text-2xl font-semibold text-red-600 mb-4 flex items-center"><span class="mr-2">🔴</span> Non-Vegetarian</h5>';
+                html += '<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">';
+                nonVegItems.forEach(item => {
+                    html += createMenuCard(item);
+                });
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Create menu card
+        function createMenuCard(item) {
+            const vegIcon = item.category === 'Veg' ? '🟢' : '🔴';
+            return `
+                <div class="bg-gradient-to-br from-gray-800 to-gray-900 p-2 md:p-4 rounded-lg shadow-lg hover:shadow-xl transition border border-gray-700">
+                    <div class="flex justify-between items-start mb-1 md:mb-2">
+                        <h5 class="text-xs md:text-lg font-semibold text-white leading-tight">${item.name}</h5>
+                        <span class="text-sm md:text-xl flex-shrink-0 ml-1">${vegIcon}</span>
+                    </div>
+                    <p class="text-orange-400 font-bold text-sm md:text-xl">${item.price}</p>
+                </div>
+            `;
+        }
+
+        // Create family pack card
+        function createFamilyPackCard(item) {
+            const vegIcon = item.category === 'Veg' ? '🟢' : '🔴';
+            return `
+                <div class="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition border border-gray-700">
+                    <div class="flex justify-between items-start mb-3">
+                        <h5 class="text-xl font-bold text-white">${item.name}</h5>
+                        <span class="text-2xl">${vegIcon}</span>
+                    </div>
+                    <p class="text-gray-300 mb-3">${item.includes}</p>
+                    <p class="text-orange-400 font-bold text-2xl">${item.price}</p>
+                </div>
+            `;
+        }
+
+        // Filter menu
+        function filterMenu(category) {
+            const sections = document.querySelectorAll('.menu-category');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update button styles
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-orange-500', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-800');
+            });
+            event.target.classList.remove('bg-white', 'text-gray-800');
+            event.target.classList.add('bg-orange-500', 'text-white');
+
+            if (category === 'all') {
+                sections.forEach(section => section.style.display = 'block');
+                // Scroll to menu section
+                document.getElementById('menu').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                sections.forEach(section => {
+                    if (section.classList.contains(category)) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+                // Scroll to the specific category section
+                const targetSection = document.getElementById(category + '-section');
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Initialize menu on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenu();
+        });
+    </script>
+</body>
+</html>
